@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "title": "StaterKit", "icon": "home", "type": "sub", "badgeType": "primary", "badgeValue": "6", "active": false,
+      "children": [
+        { "path": "/dashboard/default", "title": "Page1", "type": "link" },
+        { "path": "/dashboard/ecommerce", "title": "Page2", "type": "link" }
+      ]
+    },
+    {
+      "headTitle1": "Academic",
+      "headTitle2": "All the Academic ",
+      "type": "headtitle"
+    },
+    {
+      "headTitle1": "File Manger",
+      "headTitle2": "Documents, Replies with Files ",
+      "type": "headtitle"
+    },
+    {
+      "title": "Files", "icon": "git-pull-request", "type": "sub", "badgeType": "primary", "badgeValue": "6", "active": false,
+      "children": [
+        { "path": "/documents", "title": "Documents", "type": "link" },
+        { "path": "/documents/create", "title": "Create Document", "type": "link" }
+      ]
+    }
+  ]
+}
