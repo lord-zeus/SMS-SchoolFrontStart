@@ -5,6 +5,8 @@ import Body from '../components/body'
 
 import SamplePage from '../pages/sample_page'
 import Documents from '../pages/FileManagement/Documents'
+import CreateDocument from '../pages/FileManagement/CreateDocument'
+import ShowDocument from '../pages/FileManagement/ShowDocument'
 
 // component
 
@@ -39,7 +41,7 @@ const routes = [
         component: Body,
         children: [
             {
-                path: '',
+                path: 'all/:type',
                 name: 'documents',
                 component: Documents,
                 meta: {
@@ -48,8 +50,16 @@ const routes = [
             },
             {
                 path: 'create',
-                name: 'create',
-                component: SamplePage,
+                name: 'createDocument',
+                component: CreateDocument,
+                meta: {
+                    title: 'Ecommerce Dashboard | Endless - Premium Admin Template',
+                }
+            },
+            {
+                path: 'show/:document_id',
+                name: 'showDocument',
+                component: ShowDocument,
                 meta: {
                     title: 'Ecommerce Dashboard | Endless - Premium Admin Template',
                 }
