@@ -28,6 +28,9 @@ Vue.component('Breadcrumbs', Breadcrumbs)
 global.base_first = 'http://192.168.8.100:8080'
 global.base_url = global.base_first+"/api/v1/file-module"
 axios.defaults.baseURL = global.base_url;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.put['Access-Control-Allow-Origin'] = 'http://192.168.8.100:8080';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = 'http://192.168.8.100:8080';
 new Vue({
   router,
   store,

@@ -20,7 +20,8 @@
     {
       "title": "Files", "icon": "git-pull-request", "type": "sub", "badgeType": "primary", "badgeValue": "6", "active": false,
       "children": [
-        { "path": "/documents", "title": "Documents", "type": "link" },
+        { "path": "/documents/all/school", "title": "School", "type": "link" },
+        { "path": "/documents/all/personal", "title": "Personal", "type": "link" },
         { "path": "/documents/create", "title": "Create Document", "type": "link" }
       ]
     }
