@@ -58,7 +58,7 @@ const routes = [
             },
             {
                 path: 'show/:document_id',
-                name: 'showDocument',
+                name: 'ShowDocument',
                 component: ShowDocument,
                 meta: {
                     title: 'Ecommerce Dashboard | Endless - Premium Admin Template',
