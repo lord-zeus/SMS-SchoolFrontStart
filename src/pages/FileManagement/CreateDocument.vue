@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Sample Card</h5><span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                            <h5>Create Document</h5><span>Fill the form below with information for your document.</span>
                         </div>
                         <div class="card-body">
                             <b-form class="needs-validation" @submit="onCustomStyleSubmit">
@@ -132,6 +132,15 @@
 
                                 <b-button type="submit" variant="primary">Submit Form</b-button>
                             </b-form>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="h4">Upload Files</label>
+                                        <vue-dropzone v-on:vdropzone-sending="sendingEvent" ref="documentUpload" :options="singledropzoneOptions" class="dropzone digits">
+                                        </vue-dropzone>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,6 +152,8 @@
 </template>
 
 <script>
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 import { VueEditor } from 'vue2-editor';
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead';
 import axios from "axios"
@@ -152,7 +163,9 @@ export default {
 
     name: "Documents",
     components: {
-        VueEditor,VueBootstrapTypeahead,Datepicker
+        VueEditor,VueBootstrapTypeahead,Datepicker,
+        vueDropzone: vue2Dropzone,
+
     },
     data(){
         return {
@@ -189,64 +202,31 @@ export default {
                 state:null,
                 zip:null
             },
-            contacts: [
-                {
-                    name: 'Nsagha Kingsly',
-                    address: 'Molyko Buea',
-                    position: 'Principal',
-                    phone: '679320168'
-                },
-                {
-                    name: 'James Kingsly',
-                    address: 'Molyko Buea',
-                    position: 'Principal',
-                    phone: '679320168'
-                },
-                {
-                    name: 'Nsagha Emerrencia',
-                    address: 'Molyko Buea',
-                    position: 'Principal',
-                    phone: '679320168'
-                },
-                {
-                    name: 'Neba Jones',
-                    address: 'Molyko Buea',
-                    position: 'Principal',
-                    phone: '679320168'
-                },
-            ],
+            contacts: [],
             searchReceiver: null,
             searchSender: null,
-            documents:[
-                {
-                    title:'<h5>Basic Card</h5>',
-                    description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.'
-                },
-                {
-                    title:'<h5>Flat Card</h5>',
-                    description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.'
-                },
-                {
-                    title:'<h5>Without shadow Card</h5>',
-                    description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.'
-                },
-                {
-                    title:'<h5><i class="icon-move mr-2"></i> Icon in Heading</h5>',
-                    description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.'
-                },
-                {
-                    title:'<h5>Card sub Title</h5><span>Using the <a href="#">card</a> component, you can extend the default collapse behavior to create an accordion.</span>',
-                    description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.'
-                },
-                {
-                    title:'<h5>Card sub Title</h5><span>Using the <a href="#">card</a> component, you can extend the default collapse behavior to create an accordion.</span>',
-                    description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.'
-                }
-            ],
+            documents:[],
+            document: {
+                id: '006d189a-21ab-44d0-a815-c0e3c4c1bc6c'
+            },
             lastPage: '',
             currentPage: '',
             school_documents: true,
             pagination: {},
+            singledropzoneOptions:{
+                headers: {
+                    "Access-Control-Allow-Origin" : "http://192.168.8.100:8080",
+                    "Access-Control-Allow-Credentials":true,
+                    "Access-Control-Allow-Headers":"Content-Type, Authorization, X-Requested-With, Accept, Content-Type, Origin, Cache-Control, X-PINGOTHER, X-File-Name, Cache-Control",
+                    "Access-Control-Allow-Methods":"PUT, POST, GET, OPTIONS"
+                },
+                url: global.base_url + '/scans',
+                thumbnailWidth: 150,
+                maxFiles:5,
+                maxFilesize: 6,
+                addRemoveLinks: true,
+                dictDefaultMessage:'<i class=\'icon-cloud-up\'></i><h6>Drop files for this Document here or click to upload.</h6><span>(Your files are uploaded <strong>directly</strong> when you select.)</span>'
+            }
 
         }
     },
@@ -329,6 +309,7 @@ export default {
             }).then((resp) => {
                 console.log('done')
                 console.log(resp.data)
+                this.document = resp.data
             }).catch((error) => {
                 console.log(error)
             })
@@ -346,17 +327,6 @@ export default {
                 this.contacts = resp.data.data
             })
         },
-
-        getSchoolDocuments(page_number){
-            let school_id = 1
-            axios.get('/documents/schools/' + school_id + '/'+ page_number).then((resp) => {
-                this.documents = resp.data.data
-                console.dir(resp.data.data)
-                this.paginationMethod(resp.data.current_page, resp.data.last_page)
-                this.currentPage =resp.data.current_page;
-                this.lastPage = resp.data.last_page;
-            })
-        },
         getDocuments(page_number){
             if(this.school_documents){
                 this.getSchoolDocuments(page_number)
@@ -364,10 +334,15 @@ export default {
             else {
                 this.getSchoolDocuments(page_number)
             }
-        }
+        },
+        sendingEvent (file, xhr, formData) {
+            console.log('sendingeeee')
+            formData.append('scanable_id', this.document.id);
+            formData.append('scanable_type', 'document');
+            formData.append('school_id', 1);
+        },
     },
     created() {
-        this.getDocuments(1)
         this.getSchoolContact()
     }
 }

@@ -21,7 +21,7 @@ Vue.use(Toasted,{
   iconPack: 'fontawesome'
 });
 Vue.use(Vue2Dragula);
-
+Vue.use(require('vue-moment'));
 Vue.use(VueFeather);
 Vue.use(BootstrapVue)
 Vue.component('Breadcrumbs', Breadcrumbs)

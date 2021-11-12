@@ -9,11 +9,12 @@
                     <div class="col-6">
                         <ol class="breadcrumb pull-right">
                             <li class="breadcrumb-item">
-                                <router-link :to="{ path: '/dashboard/default' }"
-                                ><feather type="home"></feather
-                                ></router-link>
+                                <router-link :to="{ path: '/dashboard/default' }"><feather type="home"></feather></router-link>
                             </li>
-                            <li class="breadcrumb-item" v-if="main">{{ main }}</li>
+
+                            <li v-for="(item, index) in sub" :key="index" class="breadcrumb-item" >
+                                <router-link class="submenu-title" :to="{ path: item.link }">{{ item.name}}</router-link>
+                            </li>
                             <li class="breadcrumb-item active" v-if="title">{{ title }}</li>
                         </ol>
                     </div>
@@ -24,13 +25,18 @@
 </template>
 <script>
 export default {
-    props: {
-        title: {
-            default: "home",
-        },
-        main: {
-            default: "",
-        },
+        props: {
+
+            title: {
+                default: "home",
+            },
+            main: {
+                default: "",
+            },
+            sub: [
+
+            ]
+
     },
 };
 </script>
