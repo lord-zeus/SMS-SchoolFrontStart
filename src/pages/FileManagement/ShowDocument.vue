@@ -18,7 +18,7 @@
 
         </div>
         <!-- Container-fluid Ends-->
-        <div class="container-fluid">
+        <div v-if="document.id" class="container-fluid">
             <div class="row">
                 <div class="col-xl-3 pr-sm-0 box-col-12">
                     <div class="file-sidebar">
@@ -49,7 +49,7 @@
                                     <form class="form-inline" action="#" method="get">
                                         <div class="form-group mb-0">
                                             <i class="fa fa-search"></i>
-                                            <input
+                                            <input v-model="search_doc" @change="searchDocFile"
                                                 class="form-control-plaintext"
                                                 type="text"
                                                 placeholder="Search..."
@@ -106,6 +106,7 @@ export default {
     },
     data(){
         return {
+            search_doc: '',
             files: [],
             sub_breads :[
                 {
@@ -139,6 +140,19 @@ export default {
         }
     },
     methods: {
+        searchDocFile(page_number){
+            if(this.search_doc.length < 2){
+                return
+            }
+            axios.get('/scans/documents/' + this.document.id + '/scans/' + page_number + '/' + this.search_doc).then((resp) => {
+                console.log(resp.data);
+                this.files = resp.data.data
+                this.paginationMethod(resp.data.current_page, resp.data.last_page)
+                this.currentPage =resp.data.current_page;
+                this.lastPage = resp.data.last_page;
+                this.total = resp.data.total;
+            })
+        },
         checkClass(file){
             let name_explode = file.name.split('.')
             let ext = name_explode[name_explode.length -1]
